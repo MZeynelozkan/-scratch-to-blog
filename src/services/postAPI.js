@@ -10,3 +10,15 @@ export async function postNewBlogText(newPost) {
 
   return { data, error };
 }
+
+export async function updateCurrentPost(post) {
+  const { id, ...updatadedFields } = post;
+
+  const { data, error } = await supabase
+    .from("blogsTexts")
+    .update(updatadedFields)
+    .eq("id", id)
+    .select();
+
+  return { data, error };
+}

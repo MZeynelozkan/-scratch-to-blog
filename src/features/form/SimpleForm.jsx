@@ -1,27 +1,41 @@
 import { useForm } from "react-hook-form";
-import { postNewBlogText } from "../../services/postAPI";
+import { postNewBlogText, updateCurrentPost } from "../../services/postAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-function SimpleForm() {
+function SimpleForm({ isEditMode, id, setIsEditMode }) {
   const queryClient = useQueryClient();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  // Veri tabanini etkilemek icin useMutation kullandik icindeki mutate fonksiyonu ile onSubit fonksiyonu birlestirerek veri tabanini guncelledik
-  const { mutate } = useMutation({
+  const { mutate: createData } = useMutation({
     mutationFn: postNewBlogText,
-    onSuccess: () =>
-      queryClient.invalidateQueries({
-        queryKey: ["blogsText"],
-      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogsText"] });
+      reset();
+      setIsEditMode(false);
+    },
+  });
+
+  const { mutate: updateData } = useMutation({
+    mutationFn: updateCurrentPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogsText"] });
+      reset();
+      setIsEditMode(false);
+    },
   });
 
   async function onSubmit(data) {
-    mutate(data);
+    if (isEditMode && id) {
+      updateData(data);
+    } else {
+      createData(data);
+    }
   }
 
   return (
@@ -46,6 +60,18 @@ function SimpleForm() {
       />
       {errors.text && (
         <span className="text-red-500 text-sm">This field is required</span>
+      )}
+
+      {isEditMode && (
+        <>
+          <input
+            hidden
+            type="id"
+            defaultValue={id}
+            {...register("id")}
+            placeholder="Type something..."
+          />
+        </>
       )}
       <button
         type="submit"
