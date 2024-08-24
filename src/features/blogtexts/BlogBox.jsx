@@ -6,12 +6,12 @@ function BlogBox({ blog }) {
   const { id, text } = blog;
 
   return (
-    <div className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg p-6">
+    <div className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg p-6  min-h-[100px]">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">{`Blog ID: ${id}`}</h2>
-      <p className="text-gray-600">{text}</p>
+      <p className="text-gray-600  break-words">{text}</p>
       <button
         onClick={() => setIsEditMode(!isEditMode)}
-        className="bg-red-300 px-3 rounded-md"
+        className="bg-red-300 px-3 rounded-md mt-4"
       >
         Düzenle
       </button>

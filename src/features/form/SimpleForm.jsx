@@ -1,9 +1,12 @@
 import { useForm } from "react-hook-form";
 import { postNewBlogText, updateCurrentPost } from "../../services/postAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { getUserId } from "../../services/userSlice";
 
 function SimpleForm({ isEditMode, id, setIsEditMode }) {
   const queryClient = useQueryClient();
+  const userId = useSelector(getUserId);
 
   const {
     register,
@@ -31,10 +34,11 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
   });
 
   async function onSubmit(data) {
-    if (isEditMode && id) {
-      updateData(data);
+    const postData = { ...data, id, userId };
+    if (isEditMode) {
+      updateData(postData);
     } else {
-      createData(data);
+      createData(postData);
     }
   }
 
@@ -62,17 +66,8 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
         <span className="text-red-500 text-sm">This field is required</span>
       )}
 
-      {isEditMode && (
-        <>
-          <input
-            hidden
-            type="id"
-            defaultValue={id}
-            {...register("id")}
-            placeholder="Type something..."
-          />
-        </>
-      )}
+      {isEditMode && <input type="hidden" value={id} {...register("id")} />}
+
       <button
         type="submit"
         className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
