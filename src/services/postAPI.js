@@ -5,11 +5,13 @@ import { getUserToken } from "./userSlice";
 // tek bir deger guncellenecegi icin newPostu direk icine yazdik obje olarak
 
 export async function postNewBlogText(newPost) {
-  const { id, ...newPosts } = newPost;
+  const { id, user_id, ...newPosts } = newPost;
+
+  console.log({ ...newPosts, user_id, id });
 
   const { data, error } = await supabase
     .from("blogsTexts")
-    .insert([newPosts])
+    .insert([{ ...newPosts, user_id }])
     .select();
 
   if (error) {

@@ -62,6 +62,18 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
         }`}
         placeholder="Type something..."
       />
+      <input
+        hidden
+        id="simpleInput"
+        type="user_id"
+        defaultValue={userId}
+        {...register("user_id", { required: true })}
+        className={`w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+          errors.text ? "border-red-500" : ""
+        }`}
+        placeholder="Type something..."
+      />
+
       {errors.text && (
         <span className="text-red-500 text-sm">This field is required</span>
       )}
