@@ -7,8 +7,6 @@ import { getUserToken } from "./userSlice";
 export async function postNewBlogText(newPost) {
   const { id, user_id, ...newPosts } = newPost;
 
-  console.log({ ...newPosts, user_id, id });
-
   const { data, error } = await supabase
     .from("blogsTexts")
     .insert([{ ...newPosts, user_id }])
@@ -56,8 +54,7 @@ export async function loginUser(userData) {
     password,
   });
 
-  console.log(data, "user login");
-  store.dispatch(getUserToken(data.user.id));
+  store.dispatch(getUserToken(data.user.id, data.user.aud));
 
   return { data, error };
 }
@@ -65,5 +62,10 @@ export async function loginUser(userData) {
 export async function logout() {
   const { error } = await supabase.auth.signOut();
 
+  return error;
+}
+
+export async function deletePost(id) {
+  const { error } = await supabase.from("blogsTexts").delete().eq("id", id);
   return error;
 }

@@ -12,3 +12,15 @@ export async function getBlogText() {
 
   return blogsTexts;
 }
+
+export async function getBlogTextId() {
+  const { data: blogsTexts, error } = await supabase
+    .from("blogsTexts")
+    .select("userId");
+
+  if (error) {
+    console.log(error.message);
+  }
+
+  return { blogsTexts, error };
+}
