@@ -3,13 +3,8 @@ import { useTexts } from "./useTexts";
 
 function BlogTable() {
   const { isLoading, error, blogData, fetchStatus } = useTexts();
-  const isFetching = fetchStatus === "fetching";
 
   if (isLoading) {
-    return <div className="text-center p-5">Loading...</div>;
-  }
-
-  if (isFetching) {
     return <div className="text-center p-5">Loading...</div>;
   }
 
