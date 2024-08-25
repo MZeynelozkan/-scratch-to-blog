@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { getUserId } from "../../services/userSlice";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import FormInputs from "../../ui/FormInputs";
 
 function SimpleForm({ isEditMode, id, setIsEditMode }) {
   const queryClient = useQueryClient();
@@ -65,15 +66,8 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
       >
         Enter Text:
       </label>
-      <input
-        id="simpleInput"
-        type="text"
-        {...register("text", { required: true })}
-        className={`w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-          errors.text ? "border-red-500" : ""
-        }`}
-        placeholder="Type something..."
-      />
+      <FormInputs id="text" type="text" register={register} errors={errors} />
+
       <input
         hidden
         id="simpleInput"
