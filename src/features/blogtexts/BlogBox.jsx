@@ -4,15 +4,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deletePost } from "../../services/postAPI";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../services/userSlice";
+import toast from "react-hot-toast";
 
-function BlogBox({ blog }) {
+function BlogBox({ blog = {} }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const { id, text } = blog;
   const queryClient = useQueryClient();
 
-  const { mutate: deleteFn } = useMutation({
+  const { mutate: deleteFn, isPending } = useMutation({
     mutationFn: deletePost,
-    onSuccess: () => queryClient.invalidateQueries(["blogsText"]),
+    onSuccess: () => {
+      toast.success("Blog Text Deleted");
+
+      queryClient.invalidateQueries(["blogsText"]);
+    },
   });
 
   const userID = useSelector(getUserId);

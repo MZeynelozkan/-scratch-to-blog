@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { loginUser } from "../../services/postAPI"; // loginUser işlevini kullan
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import FormInputs from "../../ui/FormInputs";
 
 function LoginForm() {
   const navigate = useNavigate(); // useNavigate hook'unu kullanın
@@ -39,12 +38,16 @@ function LoginForm() {
           >
             Email:
           </label>
-          <FormInputs
-            id="email"
+          <input
             type="email"
-            register={register}
-            errors={errors}
+            id="email"
+            name="email"
+            className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("email", { required: "Email is required" })}
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+          )}
         </div>
         <div>
           <label
@@ -53,12 +56,18 @@ function LoginForm() {
           >
             Password:
           </label>
-          <FormInputs
-            id="password"
+          <input
             type="password"
-            register={register}
-            errors={errors}
+            id="password"
+            name="password"
+            className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            {...register("password", { required: "Password is required" })}
           />
+          {errors.password && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.password.message}
+            </p>
+          )}
         </div>
         <button
           type="submit"

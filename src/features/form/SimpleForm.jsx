@@ -3,10 +3,13 @@ import { postNewBlogText, updateCurrentPost } from "../../services/postAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../services/userSlice";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function SimpleForm({ isEditMode, id, setIsEditMode }) {
   const queryClient = useQueryClient();
   const userId = useSelector(getUserId);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -16,11 +19,19 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
   } = useForm();
 
   const { mutate: createData } = useMutation({
+    mutationKey: ["createBlogText"], // Add a unique key for the mutation
     mutationFn: postNewBlogText,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogsText"] });
       reset();
-      setIsEditMode(false);
+
+      toast.success("Blog Text Inserted");
+
+      navigate("/");
+    },
+    onError: (error) => {
+      // Optionally handle errors here
+      toast.error("Error inserting blog text");
     },
   });
 
@@ -28,6 +39,7 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
     mutationFn: updateCurrentPost,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogsText"] });
+      toast.success("Blog Text Uptaded");
       reset();
       setIsEditMode(false);
     },

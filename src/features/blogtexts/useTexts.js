@@ -6,10 +6,11 @@ export function useTexts() {
     isLoading,
     error,
     data: blogData,
+    fetchStatus,
   } = useQuery({
     queryKey: ["blogsText"],
     queryFn: getBlogText,
   });
 
-  return { isLoading, error, blogData };
+  return { isLoading, error, blogData, fetchStatus };
 }
