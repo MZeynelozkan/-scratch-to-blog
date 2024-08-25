@@ -7,18 +7,16 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { userLogout } from "../services/userSlice";
-import { logout } from "../services/postAPI";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { userLogout } from "../services/userSlice";
+import { logout } from "../services/postAPI";
 
 function NavList() {
   const queryClient = useQueryClient();
-
   const userStatus = useSelector((state) => state.user.status);
   const isAuth = userStatus === "authenticated";
-
   const dispatch = useDispatch();
 
   const { mutate: logoutFn } = useMutation({
@@ -130,7 +128,7 @@ export function NavbarSimple() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
+    <Navbar className="mx-auto max-w-[1700px] px-6 py-3">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography as="a" variant="h6" className="mr-4 cursor-pointer py-1.5">
           Zeynel's Blog
