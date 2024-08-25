@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../../services/postAPI"; // loginUser işlevini kullan
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function LoginForm() {
   const navigate = useNavigate(); // useNavigate hook'unu kullanın
@@ -16,8 +17,10 @@ function LoginForm() {
   const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess: () => {
+      toast.success("you logged in");
       navigate("/");
     },
+    onError: () => toast.error("Lutfen gecerli hesap giriniz"),
   });
 
   function onSubmit(data) {
