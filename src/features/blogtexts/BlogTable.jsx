@@ -1,3 +1,4 @@
+import { CardDefault } from "../../ui/CardDefault";
 import BlogBox from "./BlogBox";
 import { useTexts } from "./useTexts";
 
@@ -22,7 +23,7 @@ function BlogTable() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-5">
       {blogData?.map((blog) => (
-        <BlogBox key={blog.id} blog={blog} />
+        <CardDefault key={blog.id} blog={blog} />
       ))}
     </div>
   );

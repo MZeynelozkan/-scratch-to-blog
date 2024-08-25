@@ -1,10 +1,11 @@
 import Navbar from "../ui/Navbar";
 import LoginForm from "../features/form/LoginForm";
+import { NavbarSimple } from "../ui/NavbarNew";
 
 function SecretPage() {
   return (
     <div>
-      <Navbar />
+      <NavbarSimple />
 
       <main className="mt-8 px-9">
         <LoginForm />

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { getUserId } from "../../services/userSlice";
 import toast from "react-hot-toast";
 
-function BlogBox({ blog = {} }) {
+function BlogBox({ blog  }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const { id, text } = blog;
   const queryClient = useQueryClient();
