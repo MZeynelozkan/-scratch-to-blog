@@ -56,7 +56,7 @@ export function CardDefault({ blog }) {
       </CardBody>
       <CardFooter className="pt-0">
         {isYourPost && (
-          <>
+          <div className="space-x-6">
             <Button onClick={() => setIsEditMode(!isEditMode)}>Edit</Button>
             {isEditMode && (
               <SimpleForm
@@ -66,7 +66,7 @@ export function CardDefault({ blog }) {
               />
             )}
             <Button onClick={handleDelete}>Delete</Button>
-          </>
+          </div>
         )}
       </CardFooter>
     </Card>
