@@ -5,7 +5,23 @@ import { getUserToken } from "./userSlice";
 // tek bir deger guncellenecegi icin newPostu direk icine yazdik obje olarak
 
 export async function postNewBlogText(newPost) {
-  const { id, user_id, ...newPosts } = newPost;
+  const { img, id, user_id, ...newPosts } = newPost;
+
+  if (img) {
+    const { data: imageData, error: imageError } = await supabase.storage
+      .from("avatars")
+      .upload(`public/${img.name}.png`, img, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+    if (imageError) {
+      console.error("Image upload error:", imageError.message);
+      return { data: null, error: imageError.message };
+    }
+
+    newPosts.imagePath = imageData.path;
+  }
 
   const { data, error } = await supabase
     .from("blogsTexts")
@@ -13,7 +29,7 @@ export async function postNewBlogText(newPost) {
     .select();
 
   if (error) {
-    console.error("Error:", error.message);
+    console.error("Error inserting post:", error.message);
     return { data: null, error: error.message };
   }
 

@@ -6,11 +6,13 @@ import { getUserId } from "../../services/userSlice";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import FormInputs from "../../ui/FormInputs";
+import { useState } from "react";
 
 function SimpleForm({ isEditMode, id, setIsEditMode }) {
   const queryClient = useQueryClient();
   const userId = useSelector(getUserId);
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const {
     register,
@@ -18,6 +20,12 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
     formState: { errors },
     reset,
   } = useForm();
+
+  function handleImageChange(e) {
+    const image = e.target.files[0];
+    setSelectedImage(image);
+    console.log(selectedImage);
+  }
 
   const { mutate: createData } = useMutation({
     mutationKey: ["createBlogText"], // Add a unique key for the mutation
@@ -51,7 +59,7 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
     if (isEditMode) {
       updateData(postData);
     } else {
-      createData(postData);
+      createData({ ...postData, img: selectedImage });
     }
   }
 
@@ -60,6 +68,14 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
       onSubmit={handleSubmit(onSubmit)}
       className="max-w-sm mx-auto p-4 bg-white shadow-md rounded-lg"
     >
+      <label
+        htmlFor="imageUpload"
+        className="block text-gray-700 font-medium mb-2"
+      >
+        Upload Image
+      </label>
+      <input type="file" id="imageUpload" onChange={handleImageChange} />
+
       <label
         htmlFor="textTitle"
         className="block text-gray-700 font-medium mb-2"
