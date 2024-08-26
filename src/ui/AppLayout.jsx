@@ -6,7 +6,7 @@ function AppLayout() {
     <div>
       <NavbarSimple />
 
-      <main className="mt-8 px-9">
+      <main className="mt-20 px-9">
         <Outlet />
       </main>
     </div>

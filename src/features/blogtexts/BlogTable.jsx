@@ -15,8 +15,8 @@ function BlogTable() {
   }
 
   return (
-    <div className="container mx-auto p-5">
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mx-auto ">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
         {blogData?.map((blog) => (
           <CardDefault key={blog.id} blog={blog} />
         ))}
