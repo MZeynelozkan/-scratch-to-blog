@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getBlogText } from "../../services/getAPIs";
+import { getBlogText } from "../services/getAPIs";
 
 export function useTexts() {
   const {

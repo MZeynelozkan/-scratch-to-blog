@@ -1,5 +1,5 @@
 import { CardDefault } from "../../ui/CardDefault";
-import { useTexts } from "./useTexts";
+import { useTexts } from "../../hooks/useTexts";
 
 function BlogTable() {
   const { isLoading, error, blogData, fetchStatus } = useTexts();
