@@ -7,6 +7,8 @@ import { getUserToken } from "./userSlice";
 export async function postNewBlogText(newPost) {
   const { img, id, user_id, ...newPosts } = newPost;
 
+  // newPosttu ayirdik eger img var ise sql komutlarini calistirdik newPosts.imagePath = imageData.path; yaptik ikiside baglantili olsun diye
+
   if (img) {
     const { data: imageData, error: imageError } = await supabase.storage
       .from("avatars")

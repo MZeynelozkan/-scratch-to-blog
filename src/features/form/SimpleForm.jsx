@@ -21,12 +21,14 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
     reset,
   } = useForm();
 
+  // image aldik ve selected imageyi setledik
+
   function handleImageChange(e) {
     const image = e.target.files[0];
     setSelectedImage(image);
-    console.log(selectedImage);
   }
 
+  // mutate fonksiyonumuzu ayarladik
   const { mutate: createData } = useMutation({
     mutationKey: ["createBlogText"], // Add a unique key for the mutation
     mutationFn: postNewBlogText,
@@ -54,6 +56,7 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
     },
   });
 
+  // react hook formdaki objeyi direkt olarak kullanarak data submitliyoruz
   async function onSubmit(data) {
     const postData = { ...data, id, userId };
     if (isEditMode) {
