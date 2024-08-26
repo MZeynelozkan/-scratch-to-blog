@@ -5,7 +5,6 @@ function AppLayout() {
   return (
     <div>
       <NavbarSimple />
-
       <main className="mt-20 px-9">
         <Outlet />
       </main>

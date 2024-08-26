@@ -99,16 +99,16 @@ function NavList() {
             </Typography>
           </>
         ) : null}
-
-        {isAuth && (
-          <Button
-            onClick={handleLogout}
-            className="flex items-center hover:text-blue-500 transition-colors"
-          >
-            Logout
-          </Button>
-        )}
       </Typography>
+
+      {isAuth && (
+        <Button
+          onClick={handleLogout}
+          className="flex items-center hover:text-blue-500 transition-colors self-end"
+        >
+          Logout
+        </Button>
+      )}
     </ul>
   );
 }
