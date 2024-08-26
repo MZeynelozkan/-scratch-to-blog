@@ -16,7 +16,7 @@ import SimpleForm from "../features/form/SimpleForm";
 
 export function CardDefault({ blog }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const { id, text } = blog;
+  const { id, text, textTitle } = blog;
   const queryClient = useQueryClient();
 
   const { mutate: deleteFn, isPending } = useMutation({
@@ -50,7 +50,7 @@ export function CardDefault({ blog }) {
       </CardHeader>
       <CardBody>
         <Typography variant="h5" color="blue-gray" className="mb-2">
-          Title
+          {textTitle}
         </Typography>
         <Typography>{text}</Typography>
       </CardBody>

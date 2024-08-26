@@ -61,9 +61,18 @@ function SimpleForm({ isEditMode, id, setIsEditMode }) {
       className="max-w-sm mx-auto p-4 bg-white shadow-md rounded-lg"
     >
       <label
-        htmlFor="simpleInput"
+        htmlFor="textTitle"
         className="block text-gray-700 font-medium mb-2"
       >
+        Enter Title:
+      </label>
+      <FormInputs
+        id="textTitle"
+        type="text"
+        register={register}
+        errors={errors}
+      />
+      <label htmlFor="text" className="block text-gray-700 font-medium mb-2">
         Enter Text:
       </label>
       <FormInputs id="text" type="text" register={register} errors={errors} />
