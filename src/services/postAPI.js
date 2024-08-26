@@ -84,6 +84,18 @@ export async function logout() {
 }
 
 export async function deletePost(id) {
+  let { data: blogData } = await supabase
+    .from("blogsTexts")
+    .select("imagePath");
+  const { imagePath } = blogData[0];
+  console.log(imagePath);
+
+  const { data, error: err } = await supabase.storage
+    .from("avatars")
+    .remove([`${imagePath}`]);
+
+  console.log(data);
+
   const { error } = await supabase.from("blogsTexts").delete().eq("id", id);
   return error;
 }
